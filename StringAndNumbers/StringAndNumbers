@@ -1,0 +1,116 @@
+package stringsAndNumbers;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+
+
+public class StringsAndNumbers {
+
+	public static void main(String args[]) throws IOException{
+		
+		  BufferedReader scan = new BufferedReader(new InputStreamReader(System.in));
+		
+		  System.out.println("Enter string:");
+		
+		  String input = scan.readLine();//Insert input in variable input.
+		  int strLen = input.length();//Count how long is the String.
+		
+      Pairs swap = new Pairs();
+		  Pairs [] arr=new Pairs[strLen];
+		  char temp =0;
+		
+		    for (int h = 0; h < strLen; h++) {//Putting String in our class Pairs
+			      arr[h]=new Pairs();
+		    }
+		
+		  occurences(temp, strLen, input,arr);//Count occurrences;
+      bubleSort(arr,swap);//
+    	encodingNumber(arr);
+    	String encodedString = replaceSymbolsWithValue(strLen, input, temp, arr);
+    	sumOfAllNumbers(strLen, encodedString, temp);
+      
+    	scan.close();
+  }
+	public static void occurences(char temp,int strLen,String input,Pairs[] arr){
+		//Counts the occurrences and saves them in a variable
+		int position =0;
+		boolean found = true;
+		
+		for (int i = 0; i < strLen; i++) {	
+     		temp = input.charAt(i);
+     		found =false;
+     			int j;
+     			for( j =0;arr[j].getOccurances() != 0;j++){
+     				if(temp == arr[j].getSymbol()){
+     					arr[j].setOccurances(arr[j].getOccurances()+1);
+     					found =true;
+     				}
+     			}
+     			position =j;
+     			if(!found){
+     				arr[position].setSymbol(temp);
+     				arr[position].setOccurances(arr[position].getOccurances()+1);
+     			}
+        }
+	}
+ 	public static void bubleSort(Pairs[] arr,Pairs swap){
+ 		//Sort the array of symbols in a ascending way.
+        	for (int u = 0; arr[u].getOccurances() != 0; u++){
+        			for (int l = 0; arr[l+1].getOccurances() != 0; l++){
+        					if (arr[l].getOccurances() < arr[l+1].getOccurances()){
+        							swap = arr[l];
+        							arr[l] = arr[l + 1];
+        							arr[l + 1] = swap;
+        						}
+        				}
+        		}
+        }
+ 	public static void encodingNumber(Pairs[] arr){
+ 		//Gives the symbols value depending on their position
+		int counter=9;
+    
+		for(int k=0; k<10;k++){
+			arr[k].setPosition(counter);
+			counter--;
+    }
+	}
+ 	public static String replaceSymbolsWithValue(int strLen,String input,char temp,Pairs[] arr){
+ 		//Replace the first ten symbols with their value depending on the position.
+		for(int i=0; i < strLen;i++){
+        	temp = input.charAt(i);
+        	for(int j=0;j<10;j++){
+        		if(temp == arr[j].getSymbol())
+        		{
+        			input = input.replace(Character.toString(temp), Integer.toString(arr[j].getPosition()));
+        		}
+        	}
+        }
+        System.out.println("Encoded String:\n"+input);
+        return input;
+	}
+ 	public static void sumOfAllNumbers(int strLen,String encodedString,char temp){
+ 		//Sums all the separated numbers.
+        BigInteger acc= new BigInteger("0");
+        
+        String number="0";
+        for(int h=0;h<strLen;h++){
+        	temp = encodedString.charAt(h);
+        	if(temp >= '0' && temp <= '9'){
+        		number += Character.toString(temp);
+          }
+        	else{
+        		
+        		acc =acc.add(new BigInteger(number));
+        		
+        		number = "0";
+        	}
+        }
+        acc =acc.add(new BigInteger(number));
+        
+        System.out.println("Result:\n"+acc);
+        }
+}
+	
+
+
