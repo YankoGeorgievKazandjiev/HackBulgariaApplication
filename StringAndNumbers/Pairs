@@ -1,0 +1,39 @@
+package stringsAndNumbers;
+
+public class Pairs{
+	
+	private int occurances;
+	private  char symbol;
+	private int position;
+	
+		public Pairs(){
+			symbol ='0';
+			occurances =0;
+			position =0;
+		}
+		
+		public char getSymbol(){
+			return symbol;
+		}
+		
+		public int getOccurances(){
+			return occurances;
+		}
+		
+		public void setSymbol(char symb){
+			symbol = symb;
+		}
+		
+		public void setOccurances(int occ){
+			occurances =occ;
+		}
+		
+		public int getPosition(){
+			return position;
+		}
+		
+		public void setPosition(int poss){
+			position = poss;
+		}
+		
+ }
