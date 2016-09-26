@@ -1,0 +1,50 @@
+package lakes;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Lakes {
+	public static void main(String[] args) throws IOException {
+		final int SQUARE = 1000;
+		final int HALFSQUARE = 500;
+		
+		int depth = 0;
+		char temp = 0;
+		int volume = 0;
+		
+		System.out.println("Enter String with: d,h,u");
+		BufferedReader scan = new BufferedReader(new InputStreamReader(System.in));
+		String str = scan.readLine();
+		
+		for(int i=0; i<str.length();i++){
+			temp = str.charAt(i);
+			
+			if(depth >= 0){
+				if(temp == 'd'){
+					depth++;
+					volume += (depth-1)*SQUARE + HALFSQUARE;
+				}
+				if(temp == 'u'){
+					if((depth - 1) >= 0){
+						volume += (depth - 1)*SQUARE + HALFSQUARE;
+					}
+					depth--;
+				}
+				if(temp == 'h'){
+					volume += depth*SQUARE;
+				}
+			}
+			else{
+				if(temp == 'd'){
+					depth++;
+				}
+				if(temp == 'u'){
+					depth--;
+				}
+			}
+		}
+		System.out.println("Result:\n"+volume);
+    scan.close();
+	}
+}
