@@ -1,0 +1,58 @@
+package headAndTales;
+import java.io.*;
+
+public class HeadAndTales {
+	public static void main(String arg[]) throws IOException{
+		  BufferedReader scan = new BufferedReader(new InputStreamReader(System.in));
+          
+          System.out.println("Enter the string:");
+          String input = scan.readLine();
+          
+          int countT = 0,countH=0,maxT=0,maxH = 0;
+          int strLen = input.length();
+          char array[] = new char[strLen];
+          
+          for (int i = 0; i < array.length; i++) {	//Insert the string in array char by char.
+              array[i] = input.charAt(i);
+          }
+         
+          char firstElement = array[0];
+          
+          for(int j=0;j<array.length;j++){	
+          //Finding the longest consecutive.
+        	  if(array[j]=='T'){
+        		  if(firstElement==array[j]){
+        			  countT++;
+        		  }
+        		  else {
+        			  countT = 1;
+        			  }
+        		  firstElement=array[j];
+        	  }
+        	  if(array[j]=='H'){  
+        		  if(firstElement==array[j]){
+        			  countH++;
+        		  }
+        		  else {
+        			  countH = 1;
+        		  }
+        		  firstElement=array[j];	 
+        	  }
+        	  if(maxT<countT){
+        		  maxT = countT;
+        	  }
+        	  if(maxH<countH){
+        		  maxH = countH;
+        	  }
+          }
+          if(maxT<maxH){					
+   		  System.out.println("H wins!");
+          }
+          else if(maxH<maxT){				
+        	  System.out.println("T wins!");
+          }
+          else {							
+        	  System.out.println("Draw!");
+          }
+	}
+}
