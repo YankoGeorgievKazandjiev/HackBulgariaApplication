@@ -86,7 +86,7 @@ public class StringsAndNumbers {
         		}
         	}
         }
-        System.out.println("Encoded String:\n"+input);
+        //System.out.println("Encoded String:\n"+input);
         return input;
 	}
  	public static void sumOfAllNumbers(int strLen,String encodedString,char temp){
